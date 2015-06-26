@@ -1,21 +1,30 @@
-class Controller
+
+class Player
 
   def initialize
 
   end
 
-  def run
+end
+
+
+
+
+
+
+
+
+
+
+class Controller
+
+  def init
 
   end
 
-  def possible_responses(arguments)
-    argument[:options] + arguments[:secret_options] + ['cancel']
-  end
-
-  def additional_response(arguments)
+  def additional_response(argument)
     view.puts(argument[:promt])
     input = nil
-    possible_responses
     while !arguments[:options].include?(input) || secret_options || 'cancel'
       input = view.get_input
     end
