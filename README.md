@@ -14,3 +14,4 @@ I will be handling pull requests, but I am open to all suggestions. Let's make s
 RESOURCES:
 
 Text-based style games: [Adventure](https://en.wikipedia.org/wiki/Colossal_Cave_Adventure), [Zork](https://en.wikipedia.org/wiki/Zork)
+Playable Text-based game: [The Hitchhiker's Guide to the Galaxy](http://www.bbc.co.uk/programmes/articles/1g84m0sXpnNCv84GpN2PLZG/the-hitchhikers-guide-to-the-galaxy-game-30th-anniversary-edition)
