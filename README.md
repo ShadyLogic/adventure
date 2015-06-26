@@ -10,3 +10,7 @@ I think it would be cool to have secrets in the game that are only accessible by
 Because this could turn into a large and hard-to-manage project, it is my opinion that the best way to design this project is to make it modular. Rooms / stages in the adventure should be self-contained, while the game engine itself will handle things like user input and display. It may be benneficial to use something like the MVC model for this.
 
 I will be handling pull requests, but I am open to all suggestions. Let's make something beautiful and meaningful!
+
+RESOURCES:
+
+Text-based style games: [Adventure](https://en.wikipedia.org/wiki/Colossal_Cave_Adventure), [Zork](https://en.wikipedia.org/wiki/Zork)
