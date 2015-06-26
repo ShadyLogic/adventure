@@ -1,3 +1,4 @@
+
 class Controller
 
   def initialize
@@ -9,14 +10,14 @@ class Controller
   end
 
   def possible_responses(arguments)
-    argument[:options] + arguments[:secret_options] + ['cancel']
+    arguments[:options] + arguments[:secret_options] + ['cancel']
   end
 
   def additional_response(arguments)
-    view.puts(argument[:promt])
+    view.puts(arguments[:promt])
     input = nil
     possible_responses
-    while !arguments[:options].include?(input) || secret_options || 'cancel'
+    while !possible_responses(arguments).include?(input)
       input = view.get_input
     end
     return input
