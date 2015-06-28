@@ -2,11 +2,13 @@
 class Controller
 
   def initialize
-
+    @model  = Model.new
+    @view   = View.new
   end
 
   def run
-
+    view.get_input
+gh
   end
 
   def possible_responses(arguments)

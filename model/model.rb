@@ -1,4 +1,5 @@
 
+
 class Model
   attr_accessor :rooms
 
