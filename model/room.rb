@@ -1,26 +1,23 @@
 
 class Room
+  attr_reader :name, :enter_text, :exit_text, :description
 
-  def initialize(player)
-    @name               = args.fetch(:name, "A Room")
-    @enter_text         = args.fetch(:exit_text, "You enter a room. It looks very generic.")
-    @exit_text          = args.fetch(:exit_text, "You enter a room. It looks very generic.")
-    @description        = args.fetch(:description, "You are standing in a room. There's not much to it. What a boring place.")
-    @solved             = false
-
-    @player = player
+  def initialize
+    @solved = false
+    @name         = "Room"
+    @enter_text   = "You are standing in a room."
+    @exit_text    = "You leave the room."
+    @description  = "A pretty generic looking room. Somebody got lazy."
   end
 
   def solved?
     @solved
   end
 
+  private
+
   def solve
     @solved = true
-  end
-
-  def look
-    @description
   end
 
 end

@@ -6,6 +6,7 @@ class View
   end
 
   def get_input
+  	print '?> '
     gets.chomp.downcase
   end
 

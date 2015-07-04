@@ -1,19 +1,18 @@
 require 'pathname'
 require 'active_record'
+require_relative 'model/player'
 require_relative 'model/room'
+require_relative 'controller/controller'
+require_relative 'model/lobby'
+require_relative 'view/view'
 
 path_to_root_directory = File.expand_path('../', __FILE__)
 APP_ROOT = Pathname.new(path_to_root_directory)
 
 model_files = Dir[APP_ROOT.join('model', 'rooms', '*.rb')]
 
-model_files.each do |model_file|
-  require model_file
+controller = Controller.new(model_files)
 
-  filename = File.basename(model_file, ".*")
+system('clear')
 
-  class_name = ActiveSupport::Inflector.camelize(filename), model_file
-
-  puts class_name
-end
-
+controller.run
