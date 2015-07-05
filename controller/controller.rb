@@ -2,12 +2,9 @@
 class Controller
   attr_accessor :rooms, :current_room, :view
 
-  def initialize(model_files)
-    @player = Player.new
-    @rooms = []
-    load_rooms(model_files)
+  def initialize(rooms)
+    @rooms = rooms
     @current_room = Lobby.new
-    @view = View.new
   end
 
   def run
@@ -15,38 +12,20 @@ class Controller
     while !current_room.solved?
       parse_input(get_input)
     end
-    puts current_room.exit_text
     @current_room = rooms.shuffle.pop
     run
   end
 
-
+#####################################################
   private
-
 
   def get_input
     print '?> '
     gets.chomp.downcase
   end
 
-
-  def add_room(room)
-    rooms << room
-  end
-
-  #Searches the model/rooms directory and loads a new instance of each room.
-  def load_rooms(model_files)
-    model_files.each do |model_file|
-      require model_file
-      filename = File.basename(model_file, ".*")
-      class_name = ActiveSupport::Inflector.camelize(filename), model_file
-      room = Object::const_get(class_name.first).new
-      add_room(room)
-    end
-  end
-
   def enter_room
-    puts current_room.enter_text
+    current_room.startup
   end
 
   def parse_input(input)
@@ -58,8 +37,13 @@ class Controller
   end
 
   def core_commands(input)
-    if input.include?('look')
-      puts current_room.description 
+    if input.include?('clear')
+        system('clear')
+        puts current_room.description
+      return true
+    end
+    if input.include?('quit')
+        abort
       return true
     end
   end
