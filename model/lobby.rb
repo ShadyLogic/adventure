@@ -19,6 +19,8 @@ class Lobby < Room
   		go_lobby
   	elsif input.include?('away')
   		exit(input)
+  	elsif input.include?('outside')
+  		exit(input)
   	else
   		puts "You want to go where?"
 	end

@@ -8,12 +8,14 @@ class Controller
   end
 
   def run
-    enter_room
+    current_room.startup
     while !current_room.solved?
       parse_input(get_input)
     end
-    @current_room = rooms.shuffle.pop
-    run
+    unless @rooms.empty?
+      @current_room = rooms.shuffle!.pop
+      run
+    end
   end
 
 #####################################################
@@ -22,10 +24,6 @@ class Controller
   def get_input
     print '?> '
     gets.chomp.downcase
-  end
-
-  def enter_room
-    current_room.startup
   end
 
   def parse_input(input)

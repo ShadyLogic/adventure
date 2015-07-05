@@ -1,5 +1,6 @@
 require 'pathname'
 require 'active_record'
+require 'faker'
 require_relative 'controller/controller'
 require_relative 'model/room'
 require_relative 'model/lobby'

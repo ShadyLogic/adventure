@@ -4,7 +4,8 @@ class Room
   def initialize
     @solved = false
     @name         = "Room"
-    @description  = "A pretty generic looking room. Somebody got lazy."
+    @creator      = "Jacob Rogers"
+    @description  = "A pretty generic looking room, almost looks half finished."
     @view         = Image.default
   end
 
@@ -32,6 +33,10 @@ class Room
 
   def view(input=nil)
     @view
+  end
+
+  def creator(input=nil)
+    puts "This room was created by #{@creator}."
   end
 
   private
