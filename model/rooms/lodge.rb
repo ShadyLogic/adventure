@@ -32,9 +32,9 @@ class Lodge < Room
   		@pong_game = PongGame.new(@student)
   		solve if @pong_game.play
   	elsif input.include?('chair')
-  		puts "The chair smiles and winks."
+  		puts "You play with the chair. Weirdo."
   	else
-  		puts "Who are you talking to?"
+  		puts "Did you want to play ping pong?"
   	end
   end
 
