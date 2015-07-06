@@ -75,8 +75,8 @@ class PongGame
 	attr_accessor :player_score, :student_score
 
 	def initialize(student)
-		@player_score 	= 6
-		@student_score 	= 6
+		@player_score 	= 0
+		@student_score 	= 0
 		@student 		= student
 	end
 
