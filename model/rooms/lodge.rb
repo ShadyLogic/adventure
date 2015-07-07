@@ -11,19 +11,19 @@ class Lodge < Room
   end
 
   def startup(input=nil)
-  	puts "You walk past the kitchen into the Lodge you hear the sound of a ping pong ball being bounced on a paddle."
+  	@client.puts "You walk past the kitchen into the Lodge you hear the sound of a ping pong ball being bounced on a paddle."
     look(nil)
   end
 
   def say(input)
   	if input.include?('student')
-  		puts @student.face
-  		puts
+  		@client.puts @student.face
+  		@client.puts
   		@student.talk
   	elsif input.include?('chair')
-  		puts "The chair smiles and winks."
+  		@client.puts "The chair smiles and winks."
   	else
-  		puts "Who are you talking to?"
+  		@client.puts "Who are you talking to?"
   	end
   end
 
@@ -32,23 +32,23 @@ class Lodge < Room
   		@pong_game = PongGame.new(@student)
   		solve if @pong_game.play
   	elsif input.include?('chair')
-  		puts "You play with the chair. Weirdo."
+  		@client.puts "You play with the chair. Weirdo."
   	else
-  		puts "Did you want to play ping pong?"
+  		@client.puts "Did you want to play ping pong?"
   	end
   end
 
   def crush(input)
   	if input.include?('ball')
-  		puts "You crush the ping pong ball. It is now impossible to play. You monster."
+  		@client.puts "You crush the ping pong ball. It is now impossible to play. You monster."
   		sleep(1)
   		solve
   	elsif input.include?('student')
-  		puts "The student smiles at you and mouths the words \"Bring it on\"."
+  		@client.puts "The student smiles at you and mouths the words \"Bring it on\"."
   	elsif input.include?('chair')
-  		puts "You destroy one of the chairs. Good job?"
+  		@client.puts "You destroy one of the chairs. Good job?"
   	else
-  		puts "My, aren't we violent."
+  		@client.puts "My, aren't we violent."
   	end
   end
 
@@ -84,9 +84,9 @@ class PongGame
 		while (player_score < 7 && student_score < 7) || overtime?
 			determine_serve
 		end
-		puts
-		puts "The final score was:"
-		puts "You: #{player_score} | #{@student.name}: #{student_score}"
+		@client.puts
+		@client.puts "The final score was:"
+		@client.puts "You: #{player_score} | #{@student.name}: #{student_score}"
 		if player_score > student_score
 			player_wins
 			return true
@@ -108,14 +108,14 @@ class PongGame
 	end
 
 	def determine_serve
-		puts
-		puts Image.ping_pong_2
-		puts
-		puts "The score is You: #{player_score}, #{@student.name.split(" ").first}: #{student_score}"
+		@client.puts
+		@client.puts Image.ping_pong_2
+		@client.puts
+		@client.puts "The score is You: #{player_score}, #{@student.name.split(" ").first}: #{student_score}"
 		sleep(1.5)
 		if overtime?
-			puts
-			puts "You have to win by two! Overtime!"
+			@client.puts
+			@client.puts "You have to win by two! Overtime!"
 			sleep(1)
 			if student_score - player_score > 0
 				player_serve
@@ -133,79 +133,79 @@ class PongGame
 	end
 
 	def player_serve
-		puts
-		puts "It's your turn to serve."
+		@client.puts
+		@client.puts "It's your turn to serve."
 		input = gets.chomp.downcase
 		until input == "serve"
-			puts
-			puts "*sigh*, just type 'serve'"
+			@client.puts
+			@client.puts "*sigh*, just type 'serve'"
 			input = gets.chomp.downcase
 		end
-		puts
-		puts "You serve the ball to #{@student.name}"
+		@client.puts
+		@client.puts "You serve the ball to #{@student.name}"
 		sleep(1)
 		student_turn
 	end
 
 	def student_serve
-		puts
-		puts "#{@student.name} serves the ball."
+		@client.puts
+		@client.puts "#{@student.name} serves the ball."
 		sleep(1)
 		player_turn
 	end
 
 	def student_turn
-		puts
+		@client.puts
 		if (rand*10).to_i.even?
-			puts "#{@student.name.split(" ").first} returns the ball!"
+			@client.puts "#{@student.name.split(" ").first} returns the ball!"
 			sleep(1)
 			player_turn
 		else
-			puts "SCORE! #{@student.name.split(" ").first} was unable to stop the ball!"
+			@client.puts "SCORE! #{@student.name.split(" ").first} was unable to stop the ball!"
 			sleep(1)
 			@player_score += 1
 		end
 	end
 
 	def player_turn
-		puts
-		puts "The ball travels over the net, do you want to aim high or low?"
+		@client.puts
+		@client.puts "The ball travels over the net, do you want to aim high or low?"
 		input = gets.chomp.downcase
 		until input == "high" || input == "low" || input == "smash cannady"
-			puts
-			puts "Please type 'high' or 'low'."
+			@client.puts
+			@client.puts "Please type 'high' or 'low'."
 			input = gets.chomp.downcase
 		end
-		puts
+		@client.puts
 		if input == 'smash cannady'
-			puts "You channel the spirit of Tim Cannady and smash the heck out of the ball! SCORE!"
+			@client.puts "You channel the spirit of Tim Cannady and smash the heck out of the ball! SCORE!"
 			sleep(1)
 			@player_score += 1
 			return
 		end
 		if (rand*10).to_i.even?
-			puts "You aim #{input} and slam the ball back at #{@student.name.split(" ").first}!"
+			@client.puts "You aim #{input} and slam the ball back at #{@student.name.split(" ").first}!"
 			sleep(1)
 			student_turn
 		else
-			puts "Oh no! You aimed #{input} but the ball slipped past you."
+			@client.puts "Oh no! You aimed #{input} but the ball slipped past you."
 			sleep(1)
 			@student_score += 1
 		end
 	end
 
 	def player_wins
-		puts
-		puts "You win! #{@student.name.split(" ").first} puts their paddle down on the table and shakes your hand."
+		@client.puts
+		@client.puts "You win! #{@student.name.split(" ").first} @client.puts their paddle down on the table and shakes your hand."
 		sleep(1)
-		puts
-		puts "Satisfied with your victory, you make your way out of the lodge. Back to work!"
+		@client.puts
+		@client.puts "Satisfied with your victory, you make your way out of the lodge. Back to work!"
 		sleep(1)
 	end
 
 	def student_wins
-		puts
-		puts "You lost! #{@student.name.split(" ").first} says \"Better luck next time! Want to play again?\""
+		@client.puts
+		@client.puts "You lost! #{@student.name.split(" ").first} says \"Better luck next time! Want to play again?\""
 	end
 
 end
@@ -237,10 +237,10 @@ class Person
 
 	def talk
 		unless @introduced
-			puts "Hi! My name is #{@name}! I'm a member of the #{@cohort}. Want to play some ping pong?"
+			@client.puts "Hi! My name is #{@name}! I'm a member of the #{@cohort}. Want to play some ping pong?"
 			@introduced = true
 		else
-			puts Faker::Hacker.say_something_smart
+			@client.puts Faker::Hacker.say_something_smart
 		end
 	end
 

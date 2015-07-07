@@ -3,18 +3,25 @@ class Controller
   attr_accessor :rooms, :current_room, :view
 
   def initialize(rooms)
+    @server = nil
+    @client = nil
     @rooms = rooms
     @current_room = Lobby.new
   end
 
-  def run
+  def run(client, server)
+    @server = server
+    @client = client
+    current_room.get_client(@client)
     current_room.startup
-    while !current_room.solved?
+    until current_room.solved? || current_room.fail?
       parse_input(get_input)
+      p rooms
     end
+    return if current_room.fail?
     unless @rooms.empty?
       @current_room = rooms.shuffle!.pop
-      run
+      run(client, server)
     end
   end
 
@@ -22,12 +29,12 @@ class Controller
   private
 
   def get_input
-    print '?> '
-    gets.chomp.downcase
+    @client.print '?> '
+    @client.gets.chomp.downcase
   end
 
   def parse_input(input)
-    puts
+    @client.puts
     input = input.split
     return true if core_commands(input)
     return true if room_commands(input)
@@ -37,7 +44,7 @@ class Controller
   def core_commands(input)
     if input.include?('clear')
         system('clear')
-        puts current_room.description
+        @client.puts current_room.description
       return true
     end
     if input.include?('quit')
@@ -58,7 +65,7 @@ class Controller
 
   def unknown_command
     responses = ["I don't understand", "Huh?", "lolwut?", "What?", "Pardon?", "Excuse me?", "Come again?", "Wha..?"]
-    puts responses.sample
+    @client.puts responses.sample
   end
 
 end

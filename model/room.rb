@@ -2,17 +2,23 @@
 class Room
 
   def initialize
+    @client = nil
     @solved = false
     @name         = "Room"
-    @creator      = "Jacob Rogers"
+    @creator      = "unknown"
     @description  = "A pretty generic looking room, almost looks half finished."
     @view         = Image.default
+    @fail         = false
+  end
+
+  def get_client(client)
+    @client = client
   end
 
   def look(input=nil)
-    puts @view
-    puts
-    puts @description
+    @client.puts @view
+    @client.puts
+    @client.puts @description
   end
 
   def startup(input=nil)
@@ -21,6 +27,10 @@ class Room
 
   def solved?(input=nil)
     @solved
+  end
+
+  def fail?
+    @fail
   end
 
   def name(input=nil)
@@ -36,7 +46,7 @@ class Room
   end
 
   def creator(input=nil)
-    puts "This room was created by #{@creator}."
+    @client.puts "This room was created by #{@creator}."
   end
 
   private
@@ -46,7 +56,7 @@ class Room
   end
 
   def gameover
-    puts; puts 'GAME OVER'; puts; abort
+    @client.puts; @client.puts 'GAME OVER'; @client.puts; @fail = true
   end
 
 end
